@@ -1,11 +1,11 @@
 package org.insa.graph;
 
 public class Label implements Comparable<Label> {
-	private double cout; // valeur courante du plus court chemin depuis l'origine vers le sommet.
+	protected double cout; // valeur courante du plus court chemin depuis l'origine vers le sommet.
 	private boolean marque; // booléen, vrai lorsque le coût min de ce sommet est définitivement connu par l'algorithme.
 	private Arc pere; // correspond au sommet précédent sur le chemin correspondant au plus court chemin courant
 	private int sommetcourant; // sommet associé à ce label (sommet ou numéro de sommet).
-	
+	private Node noeud;
 	public Label(int pCourant , double cost, Arc pFather)
 	{
 		this.sommetcourant = pCourant;
@@ -22,6 +22,12 @@ public class Label implements Comparable<Label> {
 		this.pere = null; 
 	}
 
+	public Label(Node noeud){
+		this.noeud = noeud;
+		this.marque = false;
+		this.cout = Float.POSITIVE_INFINITY;
+		this.pere = null; 
+	}
 
 	public double getCout() 
 	{
@@ -58,7 +64,11 @@ public class Label implements Comparable<Label> {
 		this.cout = newdistance;
 		
 	}
-
+	
+	public double getTotalCost() 
+	{
+		return this.cout;
+	}
 	
 	
 			
