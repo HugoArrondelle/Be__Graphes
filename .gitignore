@@ -1,0 +1,18 @@
+# OS specific files and folders
+.DS_Store
+
+# Java specific files and folders
+bin
+target
+doc
+*.jar
+
+# Editor specific files and folders
+*~
+.project
+
+# Project speicific files and folders
+*.mapfg
+*.mapgr
+*.path
+*.tgz
