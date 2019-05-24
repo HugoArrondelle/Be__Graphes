@@ -142,7 +142,10 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         
         return solution;
     }
-   
+    /* Crée et retourne le Label correspondant au Node */
+	protected Label newLabel(Node node, ShortestPathData data) {
+		return new Label(node);
+	}
 
 }
 
