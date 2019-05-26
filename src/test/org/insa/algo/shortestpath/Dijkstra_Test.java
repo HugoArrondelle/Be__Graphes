@@ -39,17 +39,17 @@ public class Dijkstra_Test
 	    public static void initAll() throws IOException 
 	 {
 		// Visit these directory to see the list of available files on Commetud.
-	        String mapCarre = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/carre.mapgr";
+	        String mapCarre = "/Users/hugoarrondelle/Desktop/Maps/carre.mapgr";
 	 
 	        // Create a graph reader.
 	        GraphReader Carre = new BinaryGraphReader(
 	                new DataInputStream(new BufferedInputStream(new FileInputStream(mapCarre))));
 
 	        // Read the graph.
-	       graph_Carre = Carre.read();
+	        graph_Carre = Carre.read();
 	       
-	       // Visit these directory to see the list of available files on Commetud.
-	        String mapInsa = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/insa.mapgr";
+	        // Visit these directory to see the list of available files on Commetud.
+	        String mapInsa = "/Users/hugoarrondelle/Desktop/Maps/insa.mapgr";
 	 
 	        // Create a graph reader.
 	        GraphReader Insa = new BinaryGraphReader(
@@ -60,7 +60,7 @@ public class Dijkstra_Test
 	        
 	        
 	        // Visit these directory to see the list of available files on Commetud.
-	        String mapGuadeloupe = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
+	        String mapGuadeloupe = "/Users/hugoarrondelle/Desktop/Maps/guadeloupe.mapgr";
 	 
 	        // Create a graph reader.
 	        GraphReader Guadeloupe = new BinaryGraphReader(
@@ -70,69 +70,68 @@ public class Dijkstra_Test
 	        graph_Guadeloupe = Guadeloupe.read();
 		 
 	 }	 
-		 
-	 @Test
-     public void DopRun() throws Exception 
-	 {
-		
-	        
-	        ShortestPathData EmptyPath = new ShortestPathData(graph_Insa, null, null,ArcInspectorFactory.getAllFilters().get(0) );
-	        DijkstraAlgorithm DA = new DijkstraAlgorithm(EmptyPath);
-	        ShortestPathSolution SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.UNKNOWN);
-	        
-	        
-	        ShortestPathData Valid = new ShortestPathData(graph_Insa, graph_Insa.get(255), graph_Insa.get(525),ArcInspectorFactory.getAllFilters().get(0) );
-	        DA = new DijkstraAlgorithm(Valid);
-	        SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-	        assertTrue(SPS.getPath().isValid());
-	        
-	        
-	        
-	        
-	       
-	        
-	        
-	        ShortestPathData Invalid = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(4113), graph_Guadeloupe.get(7864),ArcInspectorFactory.getAllFilters().get(0) );
-	        DA = new DijkstraAlgorithm(Invalid);
-	        SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.INFEASIBLE);
 
-	        ShortestPathData valid_Distance = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(0) );
-	        DA = new DijkstraAlgorithm(valid_Distance);
-	        SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-	        assertTrue(SPS.getPath().isValid());
-	        
-	        ShortestPathData valid_Temps = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(2) );
-	        DA = new DijkstraAlgorithm(valid_Temps);
-	        SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-	        assertTrue(SPS.getPath().isValid());
-	        
-	        ShortestPathData valid_bicycle = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(3) );
-	        DA = new DijkstraAlgorithm(valid_bicycle);
-	        SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-	        assertTrue(SPS.getPath().isValid());
-	        
-	        
-	        
-	        
-	        
-	        
-	        
-     }
 	 @Test
      public void Carre_Valid() throws Exception
 	 {
-	        ShortestPathData Carre_Valid = new ShortestPathData(graph_Carre, graph_Carre.get(23), graph_Carre.get(16),ArcInspectorFactory.getAllFilters().get(0) );
-	        DijkstraAlgorithm DA = new DijkstraAlgorithm(Carre_Valid);
-	        ShortestPathSolution SPS = DA.doRun();
-	        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-	        assertTrue(SPS.getPath().isValid());
+        ShortestPathData Carre_Valid = new ShortestPathData(graph_Carre, graph_Carre.get(23), graph_Carre.get(16),ArcInspectorFactory.getAllFilters().get(0) );
+        DijkstraAlgorithm DA = new DijkstraAlgorithm(Carre_Valid);
+        ShortestPathSolution SPS = DA.doRun();
+        assertEquals(SPS.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS.getPath().isValid());
 	 }
-	 
+	 @Test
+     public void Empty_Insa() throws Exception
+	 {
+		 
+		 ShortestPathData EmptyPath = new ShortestPathData(graph_Insa, null, null,ArcInspectorFactory.getAllFilters().get(0) );
+	     DijkstraAlgorithm DA = new DijkstraAlgorithm(EmptyPath);
+	     ShortestPathSolution SPS = DA.doRun();
+	     assertEquals(SPS.getStatus(),Status.UNKNOWN);
+	 }
+	 @Test
+     public void Valid_Insa() throws Exception
+	 {
+		 ShortestPathData Valid = new ShortestPathData(graph_Insa, graph_Insa.get(255), graph_Insa.get(525),ArcInspectorFactory.getAllFilters().get(0) );
+		 DijkstraAlgorithm DA = new DijkstraAlgorithm(Valid);
+		 ShortestPathSolution SPS = DA.doRun();
+		 assertEquals(SPS.getStatus(),Status.OPTIMAL);
+		 assertTrue(SPS.getPath().isValid());
+	 }
+	 @Test
+     public void Invalid_Guadeloupe() throws Exception
+	 {
+        ShortestPathData Invalid = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(4113), graph_Guadeloupe.get(7864),ArcInspectorFactory.getAllFilters().get(0) );
+        DijkstraAlgorithm DA = new DijkstraAlgorithm(Invalid);
+        ShortestPathSolution SPS = DA.doRun();
+        assertEquals(SPS.getStatus(),Status.INFEASIBLE);
+	 }
+	 @Test
+     public void Valid_Distance_Guadeloupe() throws Exception
+	 {
+        ShortestPathData valid_Distance = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(0) );
+        DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_Distance);
+        ShortestPathSolution SPS = DA.doRun();
+        assertEquals(SPS.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS.getPath().isValid());
+	 }
+	 @Test
+     public void Valid_Temps_Guadeloupe() throws Exception
+	 {
+        ShortestPathData valid_Temps = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(2) );
+        DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_Temps);
+        ShortestPathSolution SPS = DA.doRun();
+        assertEquals(SPS.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS.getPath().isValid());
+	 }
+	 @Test
+     public void Valid_bicycle_Guadeloupe() throws Exception
+	 {
+        ShortestPathData valid_bicycle = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(3) );
+        DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_bicycle);
+        ShortestPathSolution SPS = DA.doRun();
+        assertEquals(SPS.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS.getPath().isValid());
+	 }
 	
 } 
