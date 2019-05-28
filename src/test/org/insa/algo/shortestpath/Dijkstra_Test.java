@@ -76,45 +76,6 @@ public class Dijkstra_Test
 		 
 	 }	 
 	
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	
-	 
-	 
-	 
-	 @Test
-     public void Carre_Valid() throws Exception
-	 {
-		ShortestPathData Carre_Valid = new ShortestPathData(graph_Carre, graph_Carre.get(23), graph_Carre.get(16),ArcInspectorFactory.getAllFilters().get(0) );
-        DijkstraAlgorithm DA = new DijkstraAlgorithm(Carre_Valid);
-        ShortestPathSolution SPS = DA.doRun();
-        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-        assertTrue(SPS.getPath().isValid());
-	 }
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	 @Test
      public void Empty_Insa() throws Exception
 	 {
@@ -171,7 +132,32 @@ public class Dijkstra_Test
 	 
 	 
 	 
-	 
+	 @Test
+     public void Carre_Valid() throws Exception
+	 {
+		 System.out.println("Test map Carre et chemin valide en longueur \n");
+		 ShortestPathData Carre_Valid = new ShortestPathData(graph_Carre, graph_Carre.get(23), graph_Carre.get(16),ArcInspectorFactory.getAllFilters().get(0) );
+	     DijkstraAlgorithm DA = new DijkstraAlgorithm(Carre_Valid);
+		 long startTime_Dijkstra = System.currentTimeMillis();
+	     ShortestPathSolution SPS_D = DA.doRun();
+	     long endTime_Dijkstra = System.currentTimeMillis();
+	     System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
+		 assertEquals(SPS_D.getStatus(),Status.OPTIMAL);
+		 assertTrue(SPS_D.getPath().isValid());
+		 System.out.println("	Dijkstra      : " + SPS_D.getPath().getLength() + " m");
+		 
+		 BellmanFordAlgorithm BE = new BellmanFordAlgorithm(Carre_Valid);
+	     long startTime_Bellman = System.currentTimeMillis();
+	     ShortestPathSolution SPS_B = DA.doRun();
+	     long endTime_Bellman = System.currentTimeMillis();
+	     System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
+	     assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
+	     assertTrue(SPS_D.getPath().isValid());
+	     System.out.println("	Bellman-Ford  : " + SPS_B.getPath().getLength() + " m");
+	     System.out.println("\n/****************************************/\n");
+		
+      
+	 }
 	 
 	 
 	 
@@ -189,21 +175,60 @@ public class Dijkstra_Test
 	 
 	 @Test
      public void Invalid_Guadeloupe() throws Exception
-	 {
+	 {     
+        
+        System.out.println("Test map Guadeloupe et chemin invalide \n");
         ShortestPathData Invalid = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(4113), graph_Guadeloupe.get(7864),ArcInspectorFactory.getAllFilters().get(0) );
-        DijkstraAlgorithm DA = new DijkstraAlgorithm(Invalid);
-        ShortestPathSolution SPS = DA.doRun();
-        assertEquals(SPS.getStatus(),Status.INFEASIBLE);
+    	DijkstraAlgorithm DA = new DijkstraAlgorithm(Invalid);
+		long startTime_Dijkstra = System.currentTimeMillis();
+		ShortestPathSolution SPS_D = DA.doRun();
+		long endTime_Dijkstra = System.currentTimeMillis();
+		System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
+		assertEquals(SPS_D.getStatus(),Status.INFEASIBLE);
+		 
+		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(Invalid);
+		long startTime_Bellman = System.currentTimeMillis();
+		ShortestPathSolution SPS_B = DA.doRun();
+		long endTime_Bellman = System.currentTimeMillis();
+		System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
+		assertEquals(SPS_B.getStatus(),Status.INFEASIBLE);
+		System.out.println("\n/****************************************/\n");
 	 }
+	 
+	 
 	 @Test
      public void Valid_Distance_Guadeloupe() throws Exception
 	 {
+        
+        
+        
+        System.out.println("Test map Guadeloupe et chemin invalide \n");
         ShortestPathData valid_Distance = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(0) );
         DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_Distance);
-        ShortestPathSolution SPS = DA.doRun();
-        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-        assertTrue(SPS.getPath().isValid());
+		long startTime_Dijkstra = System.currentTimeMillis();
+		ShortestPathSolution SPS_D = DA.doRun();
+		long endTime_Dijkstra = System.currentTimeMillis();
+		System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
+		assertEquals(SPS_D.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_D.getPath().isValid());
+		 
+		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(valid_Distance);
+		long startTime_Bellman = System.currentTimeMillis();
+		ShortestPathSolution SPS_B = DA.doRun();
+		long endTime_Bellman = System.currentTimeMillis();
+		System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
+		assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_B.getPath().isValid());
+		System.out.println("\n/****************************************/\n");
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 @Test
      public void Valid_Temps_Guadeloupe() throws Exception
 	 {
