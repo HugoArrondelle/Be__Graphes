@@ -95,7 +95,7 @@ public class AStar_Test
 	     long endTime_AStar = System.currentTimeMillis();
 	     System.out.println("	AStar      : " + (endTime_AStar - startTime_AStar) + " millisecondes");
 	     assertEquals(SPS_D.getStatus(),Status.UNKNOWN);
-	     //System.out.println("	AStar      : " + SPS_D.getPath().getLength() + " m");
+	     System.out.println("	AStar      : " + SPS_D.getPath().getLength() + " m");
 	 }
 
 	 @Test
@@ -113,6 +113,19 @@ public class AStar_Test
 		 System.out.println("	AStar      : " + SPS_D.getPath().getLength() + " m");
 	 }
 	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 @Test
      public void Invalid_Guadeloupe() throws Exception
 	 {
@@ -121,6 +134,21 @@ public class AStar_Test
         ShortestPathSolution SPS = DAa.doRun();
         assertEquals(SPS.getStatus(),Status.INFEASIBLE);
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 @Test
      public void Valid_Distance_Guadeloupe() throws Exception
 	 {
@@ -130,6 +158,24 @@ public class AStar_Test
         assertEquals(SPS.getStatus(),Status.OPTIMAL);
         assertTrue(SPS.getPath().isValid());
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 @Test
      public void Valid_Temps_Guadeloupe() throws Exception
 	 {

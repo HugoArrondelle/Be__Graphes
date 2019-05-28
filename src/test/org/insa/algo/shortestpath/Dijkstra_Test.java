@@ -88,16 +88,22 @@ public class Dijkstra_Test
 	     long endTime_Dijkstra = System.currentTimeMillis();
 	     System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
 	     assertEquals(SPS_D.getStatus(),Status.UNKNOWN);
-	     //System.out.println("	Dijkstra      : " + SPS_D.getPath().getLength() + " m");
 	     
-	     
-	     BellmanFordAlgorithm BE = new BellmanFordAlgorithm(EmptyPath);
+	     /*BellmanFordAlgorithm BE = new BellmanFordAlgorithm(EmptyPath);
 	     long startTime_Bellman = System.currentTimeMillis();
-	     ShortestPathSolution SPS_B = DA.doRun();
+	     ShortestPathSolution SPS_B = BE.doRun();
 	     long endTime_Bellman = System.currentTimeMillis();
 	     System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
-	     assertEquals(SPS_B.getStatus(),Status.UNKNOWN);
-	     //System.out.println("	Dijkstra      : " + SPS_B.getPath().getLength() + " m");
+	     assertEquals(SPS_B.getStatus(),Status.UNKNOWN);*/
+	     
+	     AStarAlgorithm Astar = new AStarAlgorithm(EmptyPath);
+	     long startTime_AStar = System.currentTimeMillis();
+	     ShortestPathSolution SPS_A = Astar.doRun();
+	     long endTime_AStar = System.currentTimeMillis();
+	     System.out.println("	AStar      : " + (endTime_AStar - startTime_AStar) + " millisecondes");
+	     assertEquals(SPS_A.getStatus(),Status.UNKNOWN);
+	     
+	     
 	     System.out.println("\n/****************************************/\n");
 	 }
 
@@ -115,18 +121,27 @@ public class Dijkstra_Test
 		 assertTrue(SPS_D.getPath().isValid());
 		 System.out.println("	Dijkstra      : " + SPS_D.getPath().getLength() + " m");
 		 
-		 
-		 
 		 BellmanFordAlgorithm BE = new BellmanFordAlgorithm(Valid);
 	     long startTime_Bellman = System.currentTimeMillis();
-	     ShortestPathSolution SPS_B = DA.doRun();
+	     ShortestPathSolution SPS_B = BE.doRun();
 	     long endTime_Bellman = System.currentTimeMillis();
 	     System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
 	     assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
 	     assertTrue(SPS_D.getPath().isValid());
 	     System.out.println("	Bellman-Ford  : " + SPS_B.getPath().getLength() + " m");
-	     System.out.println("\n/****************************************/\n");
+	     
+	     
+	     
+	     AStarAlgorithm Astar = new AStarAlgorithm(Valid);
+		 long startTime_AStar = System.currentTimeMillis();
+	     ShortestPathSolution SPS_A = Astar.doRun();
+	     long endTime_AStar = System.currentTimeMillis();
+	     System.out.println("	AStar      : " + (endTime_AStar - startTime_AStar) + " millisecondes");
+		 assertEquals(SPS_D.getStatus(),Status.OPTIMAL);
+		 assertTrue(SPS_D.getPath().isValid());
+		 System.out.println("	AStar      : " + SPS_D.getPath().getLength() + " m");
 		 
+		 System.out.println("\n/****************************************/\n");
 	    
 	 }
 	 
@@ -148,12 +163,23 @@ public class Dijkstra_Test
 		 
 		 BellmanFordAlgorithm BE = new BellmanFordAlgorithm(Carre_Valid);
 	     long startTime_Bellman = System.currentTimeMillis();
-	     ShortestPathSolution SPS_B = DA.doRun();
+	     ShortestPathSolution SPS_B = BE.doRun();
 	     long endTime_Bellman = System.currentTimeMillis();
 	     System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
 	     assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
 	     assertTrue(SPS_D.getPath().isValid());
 	     System.out.println("	Bellman-Ford  : " + SPS_B.getPath().getLength() + " m");
+	      
+         AStarAlgorithm Astar = new AStarAlgorithm(Carre_Valid);
+ 		 long startTime_Astar = System.currentTimeMillis();
+ 		 ShortestPathSolution SPS_A = Astar.doRun();
+ 		 long endTime_Astar = System.currentTimeMillis();
+ 		 System.out.println("	AStar      : " + (endTime_Astar - startTime_Astar) + " millisecondes");
+ 		 assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
+	     assertTrue(SPS_D.getPath().isValid());
+	     System.out.println("	Astar         : " + SPS_B.getPath().getLength() + " m");
+
+	        
 	     System.out.println("\n/****************************************/\n");
 		
       
@@ -188,12 +214,28 @@ public class Dijkstra_Test
 		 
 		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(Invalid);
 		long startTime_Bellman = System.currentTimeMillis();
-		ShortestPathSolution SPS_B = DA.doRun();
+		ShortestPathSolution SPS_B = BE.doRun();
 		long endTime_Bellman = System.currentTimeMillis();
 		System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
 		assertEquals(SPS_B.getStatus(),Status.INFEASIBLE);
+        
+        AStarAlgorithm Astar = new AStarAlgorithm(Invalid);
+		long startTime_Astar = System.currentTimeMillis();
+		ShortestPathSolution SPS_A = Astar.doRun();
+		long endTime_Astar = System.currentTimeMillis();
+		System.out.println("	AStar      : " + (endTime_Astar - startTime_Astar) + " millisecondes");
+		assertEquals(SPS_A.getStatus(),Status.INFEASIBLE);
+
+        
 		System.out.println("\n/****************************************/\n");
 	 }
+	 
+	 
+	
+	 
+	 
+	 
+	 
 	 
 	 
 	 @Test
@@ -202,7 +244,7 @@ public class Dijkstra_Test
         
         
         
-        System.out.println("Test map Guadeloupe et chemin invalide \n");
+        System.out.println("Test map Guadeloupe et valide distance \n");
         ShortestPathData valid_Distance = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(0) );
         DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_Distance);
 		long startTime_Dijkstra = System.currentTimeMillis();
@@ -214,16 +256,26 @@ public class Dijkstra_Test
 		 
 		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(valid_Distance);
 		long startTime_Bellman = System.currentTimeMillis();
-		ShortestPathSolution SPS_B = DA.doRun();
+		ShortestPathSolution SPS_B = BE.doRun();
 		long endTime_Bellman = System.currentTimeMillis();
 		System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
 		assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
         assertTrue(SPS_B.getPath().isValid());
+        
+        AStarAlgorithm Astar = new AStarAlgorithm(valid_Distance);
+		long startTime_Astar = System.currentTimeMillis();
+		ShortestPathSolution SPS_A = Astar.doRun();
+		long endTime_Astar = System.currentTimeMillis();
+		System.out.println("	AStar      : " + (endTime_Astar - startTime_Astar) + " millisecondes");
+		assertEquals(SPS_A.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_A.getPath().isValid());
+        
+        
 		System.out.println("\n/****************************************/\n");
 	 }
 	 
 	 
-	 
+	  
 	 
 	 
 	 
@@ -231,21 +283,73 @@ public class Dijkstra_Test
 	 
 	 @Test
      public void Valid_Temps_Guadeloupe() throws Exception
-	 {
+	 {        
+
+        System.out.println("Test map Guadeloupe et temps valide \n");
         ShortestPathData valid_Temps = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(2) );
         DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_Temps);
-        ShortestPathSolution SPS = DA.doRun();
-        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-        assertTrue(SPS.getPath().isValid());
+        long startTime_Dijkstra = System.currentTimeMillis();
+		ShortestPathSolution SPS_D = DA.doRun();
+		long endTime_Dijkstra = System.currentTimeMillis();
+		System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
+		assertEquals(SPS_D.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_D.getPath().isValid());
+		 
+		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(valid_Temps);
+		long startTime_Bellman = System.currentTimeMillis();
+		ShortestPathSolution SPS_B = BE.doRun();
+		long endTime_Bellman = System.currentTimeMillis();
+		System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
+		assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_B.getPath().isValid());
+        
+        AStarAlgorithm Astar = new AStarAlgorithm(valid_Temps);
+        long startTime_Astar = System.currentTimeMillis();
+        ShortestPathSolution SPS_A = Astar.doRun();
+        long endTime_Astar = System.currentTimeMillis();
+        System.out.println("	AStar      : " + (endTime_Astar - startTime_Astar) + " millisecondes");
+        assertEquals(SPS_A.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_A.getPath().isValid());
+        
+        
+		System.out.println("\n/****************************************/\n");
+		
+		
+		
 	 }
 	 @Test
      public void Valid_bicycle_Guadeloupe() throws Exception
 	 {
+        
+          
+        System.out.println("Test map Guadeloupe et chemin valide bicycle \n");
         ShortestPathData valid_bicycle = new ShortestPathData(graph_Guadeloupe, graph_Guadeloupe.get(33022), graph_Guadeloupe.get(15053),ArcInspectorFactory.getAllFilters().get(3) );
         DijkstraAlgorithm DA = new DijkstraAlgorithm(valid_bicycle);
-        ShortestPathSolution SPS = DA.doRun();
-        assertEquals(SPS.getStatus(),Status.OPTIMAL);
-        assertTrue(SPS.getPath().isValid());
+        long startTime_Dijkstra = System.currentTimeMillis();
+		ShortestPathSolution SPS_D = DA.doRun();
+		long endTime_Dijkstra = System.currentTimeMillis();
+		System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
+		assertEquals(SPS_D.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_D.getPath().isValid());
+		 
+		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(valid_bicycle);
+		long startTime_Bellman = System.currentTimeMillis();
+		ShortestPathSolution SPS_B = BE.doRun();
+		long endTime_Bellman = System.currentTimeMillis();
+		System.out.println("	Bellman-Ford  : " + (endTime_Bellman - startTime_Bellman) + " millisecondes");
+		assertEquals(SPS_B.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_B.getPath().isValid());
+        
+        AStarAlgorithm Astar = new AStarAlgorithm(valid_bicycle);
+        long startTime_Astar = System.currentTimeMillis();
+        ShortestPathSolution SPS_A = Astar.doRun();
+        long endTime_Astar = System.currentTimeMillis();
+        System.out.println("	AStar      : " + (endTime_Astar - startTime_Astar) + " millisecondes");
+        assertEquals(SPS_A.getStatus(),Status.OPTIMAL);
+        assertTrue(SPS_A.getPath().isValid());
+        
+  
+		System.out.println("\n/****************************************/\n");
 	 }
 	
 } 
