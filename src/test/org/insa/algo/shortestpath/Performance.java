@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import org.insa.graph.io.BinaryGraphReader;
 import org.insa.graph.io.GraphReader;
+import org.insa.algo.ArcInspectorFactory;
 import org.insa.graph.*;
 import java.util.Random;
 import java.io.BufferedReader;
@@ -63,7 +64,7 @@ public class Performance {
 		fileoutputstream.close();
 	}
 	
-	public static void Extract() throws IOException, FileNotFoundException 
+	public static void Extract(String args) throws IOException, FileNotFoundException 
 	{
 		int Ori,Dest, i = 0;
 		String[] nodesString;
@@ -95,6 +96,9 @@ public class Performance {
 		bwR1.newLine();
 		bwR1.write(Integer.toString(b));
 		bwR1.newLine();
+		String mapGuadeloupe = "C:\\Users\\marco\\Downloads\\guadeloupe.mapgr";
+		GraphReader Guadeloupe = new BinaryGraphReader(new DataInputStream(new BufferedInputStream(new FileInputStream(mapGuadeloupe))));
+		Graph graph = Guadeloupe.read();
 		
 		
 		while(i<samples) {
@@ -107,7 +111,42 @@ public class Performance {
 			bwR1.write("Origine : " + Ori);
 			bwR1.write("  ----- Destination : " + Dest);
 			bwR1.newLine();
-			i++;
+			
+			
+			System.out.println("Début du test");
+			ShortestPathData data = new ShortestPathData(graph, null, null,ArcInspectorFactory.getAllFilters().get(0) );
+			ShortestPathAlgorithm Choix_Algo;
+			
+			switch(args) {
+			case "B" :
+				Choix_Algo = new BellmanFordAlgorithm(data);
+				break;
+			case "D" :
+				Choix_Algo = new DijkstraAlgorithm(data);
+				break;
+			case "A" :
+				Choix_Algo = new AStarAlgorithm(data);
+				break;
+			default : 
+				System.out.println("Erreur algo pas reconnu: use is A of A* B for BellmanFord or D for Djikstra");
+				throw new IOException();
+			}
+			long startTime = System.currentTimeMillis();
+		    ShortestPathSolution Solution = Choix_Algo.doRun();
+		    long endTime = System.currentTimeMillis();
+		    long temps = endTime - startTime;
+		    
+		    if(Solution.isFeasible())
+		    {
+		    	bwR1.write("Temps : " + temps + " " + "Nombre noeud du chemin : " +Solution.getPath().size());
+		    	bwR1.newLine();
+		    	
+		    	i++;
+		    }
+		    else
+		    {
+		    	
+		    }
 		}
 		
 		
@@ -118,7 +157,7 @@ public class Performance {
 
 	 public static void main(String[] args) throws Exception {
 		 initAll("guadeloupe",0);
-		 Extract();
+		 Extract("D");
 		 if(!fichier.exists()) {
 			 System.out.println("ERROR");
 		 }
