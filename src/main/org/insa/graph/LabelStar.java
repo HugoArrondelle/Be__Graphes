@@ -23,7 +23,8 @@ public class LabelStar extends Label implements Comparable<Label>{
 
 	@Override
 	/* Renvoie le coût de l'origine jusqu'au noeud + coût à vol d'oiseau du noeud jusqu'à la destination */
-	public double getTotalCost() {
+	public double getTotalCost() 
+	{
 		return this.inf+this.cout;
 	}
 

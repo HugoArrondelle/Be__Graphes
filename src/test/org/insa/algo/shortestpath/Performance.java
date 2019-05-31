@@ -56,10 +56,13 @@ public class Performance {
 		bufferedwriter.newLine();
 		
 		Random rand = new Random();
-		for(int i=0;i<nb_Echantillions*2;i++) {
+		for(int i=0;i<nb_Echantillions*2;i++) 
+		{
 			bufferedwriter.write((rand.nextInt(graphe.getNodes().size())+" "+rand.nextInt(graphe.getNodes().size())));
 			bufferedwriter.newLine();
 		}
+		
+		
 		bufferedwriter.close();
 		fileoutputstream.close();
 	}
@@ -86,14 +89,14 @@ public class Performance {
 		FileOutputStream fosR1 = new FileOutputStream("Résultat_"+map+".txt");
 		BufferedWriter bwR1 = new BufferedWriter(new OutputStreamWriter(fosR1));
 		
-		bwR1.write("Map : " + map);
+		/*bwR1.write("Map : " + map);
 		bwR1.newLine();
 		bwR1.write("Mode : " +Integer.toString(a));
 		bwR1.newLine();
 		bwR1.write("Algorithme : " +Algo);
 		bwR1.newLine();
 		bwR1.write("Nombre d'échantillons : " + Integer.toString(b));
-		bwR1.newLine();
+		bwR1.newLine();*/
 		String mapGuadeloupe = "/Users/hugoarrondelle/Desktop/Maps/guadeloupe.mapgr";
 		GraphReader Guadeloupe = new BinaryGraphReader(new DataInputStream(new BufferedInputStream(new FileInputStream(mapGuadeloupe))));
 		Graph graph = Guadeloupe.read();
@@ -105,12 +108,10 @@ public class Performance {
 			Ori = Integer.parseInt(nodesString[0]);
 			Dest = Integer.parseInt(nodesString[1]);
 			
-			
-			
-			
-			
-			
-			ShortestPathData data = new ShortestPathData(graph, graph.getNodes().get(Ori), graph.getNodes().get(Dest),ArcInspectorFactory.getAllFilters().get(0) );
+			ShortestPathData data = new ShortestPathData(graph, 
+					graph.getNodes().get(Ori), 
+					graph.getNodes().get(Dest),
+					ArcInspectorFactory.getAllFilters().get(0));
 			
 			ShortestPathAlgorithm Choix_Algo;
 			
@@ -133,7 +134,6 @@ public class Performance {
 		    long endTime = System.currentTimeMillis();
 		    long temps_exe = endTime - startTime;
 		    
-		    
 		    bwR1.write("********************************************************");
 			bwR1.newLine();
 		    bwR1.write("Origine : " + Ori + "  ----- Destination : " + Dest);
@@ -141,16 +141,15 @@ public class Performance {
 		    
 		    if(Solution.isFeasible())
 		    {
-		    	bwR1.write("Distance : " + Solution.getPath().getLength() + " Temps d'exécution : " + temps_exe + " ms");
+		    	//bwR1.write("Distance : " + Solution.getPath().getLength() + " Temps d'exécution : " + temps_exe + " ms");
+		    	bwR1.write(Solution.getPath().getLength() +" "+ temps_exe);
 		    	bwR1.newLine();
-		    	bwR1.newLine();
-		    	
-		    	
+		    	//bwR1.newLine();    	
 		    }
 		    else
 		    {
-		    	bwR1.write("Infaisable");
-		    	bwR1.newLine();
+		    	//bwR1.write("Infaisable");
+		    	//bwR1.newLine();
 		    }
 		    i++;
 		}
@@ -164,7 +163,7 @@ public class Performance {
 
 	 public static void main(String[] args) throws Exception {
 		 initAll("guadeloupe",0);
-		 Extract("D");
+		 Extract("A");
 		 if(!fichier.exists()) {
 			 System.out.println("ERROR");
 		 }

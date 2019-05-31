@@ -6,6 +6,8 @@ public class Label implements Comparable<Label> {
 	private Arc pere; // correspond au sommet précédent sur le chemin correspondant au plus court chemin courant
 	private int sommetcourant; // sommet associé à ce label (sommet ou numéro de sommet).
 	private Node noeud;
+	
+	
 	public Label(int pCourant , double cost, Arc pFather)
 	{
 		this.sommetcourant = pCourant;

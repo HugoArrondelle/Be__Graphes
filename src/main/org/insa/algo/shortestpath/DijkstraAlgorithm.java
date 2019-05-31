@@ -102,15 +102,15 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         			{
         				notifyNodeReached(arc.getDestination());
         			}
-        			if(Double.compare(newdistance,olddistance) < 0) // Si newdistance < oldistance 
+        			if(Double.compare(newdistance,olddistance) < 0) 		// Si newdistance < oldistance 
         			{ 
-        				if (Double.isFinite(olddistance)) // Si l'ancienne distance est finie
+        				if (Double.isFinite(olddistance)) 					// Si l'ancienne distance est finie
         				{
-        					tas.remove(label_tab[successor.getId()]); // On supprime le label du successeur
+        					tas.remove(label_tab[successor.getId()]); 		// On supprime le label du successeur
         				}
-        				label_tab[successor.getId()].setCost(newdistance); // On insere le nouveau cout dans le tableau de label 
-        				tas.insert(label_tab[successor.getId()]);  // On insere le tableau de label dans le tas
-        				label_tab[successor.getId()].setFather(arc); // On insere le pere dans le tableau de label
+        				label_tab[successor.getId()].setCost(newdistance); 	// On insere le nouveau cout dans le tableau de label 
+        				tas.insert(label_tab[successor.getId()]);  			// On insere le tableau de label dans le tas
+        				label_tab[successor.getId()].setFather(arc); 		// On insere le pere dans le tableau de label
         			}
         		}
         	}
