@@ -329,6 +329,7 @@ public class Dijkstra_Test
 		System.out.println("	Dijkstra      : " + (endTime_Dijkstra - startTime_Dijkstra) + " millisecondes");
 		assertEquals(SPS_D.getStatus(),Status.OPTIMAL);
         assertTrue(SPS_D.getPath().isValid());
+        System.out.println("	Dijkstra      : " + SPS_D.getPath().getMinimumTravelTime() + " s");
         
 		 
 		BellmanFordAlgorithm BE = new BellmanFordAlgorithm(valid_Temps);

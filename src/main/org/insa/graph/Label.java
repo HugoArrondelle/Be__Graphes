@@ -1,5 +1,8 @@
 package org.insa.graph;
 
+
+import org.insa.graph.Node;
+
 public class Label implements Comparable<Label> {
 	protected double cout; // valeur courante du plus court chemin depuis l'origine vers le sommet.
 	private boolean marque; // booléen, vrai lorsque le coût min de ce sommet est définitivement connu par l'algorithme.
@@ -78,9 +81,22 @@ public class Label implements Comparable<Label> {
 	//{
 	//	return this.sommetcourant.equals(other.getSommetCourant());
 	//}
-	@Override
-	public int compareTo(Label other) {
-		return Double.compare(this.cout,  other.getCout());
+	//@Override
+	//public int compareTo(Label other) {
+	//	return Double.compare(this.cout,  other.getCout());
+	//}
+	public int compareTo(Label autre) {
+		int resultat;
+		if (this.getTotalCost() < autre.getTotalCost()) {
+			resultat = -1;
+		}
+		else if (this.getTotalCost() == autre.getTotalCost()) {
+			resultat = 0;
+		}
+		else {
+			resultat = 1;
+		}
+		return resultat;
 	}
 
 

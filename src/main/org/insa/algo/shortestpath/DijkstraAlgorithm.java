@@ -63,6 +63,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         
         while(!tas.isEmpty()) //Tant que le tas n'est pas vide
         { 
+        	     	
+        	
         	current_label = tas.deleteMin(); // On supprime le plus petit élément du tas
         	
         	//tas.print();
@@ -114,6 +116,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         			}
         		}
         	}
+        	
+        	if (current_label.getSommetCourant() == data.getDestination().getId()) 
+        	{
+        		break;
+        	}
+
         }
 
         if (predecessorArcs[data.getDestination().getId()] == null) //Si la destination n'a pas de predecesseur, la solution n'est pas faisable
